@@ -13,7 +13,7 @@ const addMovie = (title) => {
     });
 };
 
-it("can fetch a list of movies", async () => {
+it("can fetch a list of movies from a genre", async () => {
   await addMovie("1st Movie");
   await addMovie("2nd Movie");
   await addMovie("3rd Movie");
@@ -21,4 +21,8 @@ it("can fetch a list of movies", async () => {
   const response = await request(app).get("/api/movies").send().expect(200);
 
   expect(response.body.length).toEqual(3);
+  //   console.log(response);
+  expect(response.body[0].genre).toEqual(["action"]);
+  expect(response.body[1].genre).toEqual(["action"]);
+  expect(response.body[2].genre).toEqual(["action"]);
 });

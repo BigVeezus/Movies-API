@@ -11,7 +11,7 @@ it("deletes the movie and sends status 200 if the movie is found", async () => {
   const title = "asldkfj";
   const description = "Great film";
   const year = 2003;
-  const genre = ["sci-fi"];
+  const genre = ["comedy"];
   const score = 10;
 
   const response = await request(app)
