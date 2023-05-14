@@ -12,6 +12,11 @@ const movieSchema = new Schema(
       type: String,
       required: true,
     },
+    genre: {
+      type: [String],
+      enum: ["drama", "action", "romance", "comedy"],
+      default: ["drama"],
+    },
     year: {
       type: Number,
       required: true,

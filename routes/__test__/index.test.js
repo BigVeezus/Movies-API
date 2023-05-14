@@ -1,19 +1,22 @@
 const request = require("supertest");
 const app = require("../../app");
 
-const addMovie = () => {
-  return request(app).post("/api/movies/new").send({
-    title: "gngnrj",
-    description: "bad movie",
-    year: 1998,
-    score: 3,
-  });
+const addMovie = (title) => {
+  return request(app)
+    .post("/api/movies/new")
+    .send({
+      title: title,
+      description: "bad movie",
+      genre: ["action"],
+      year: 1998,
+      score: 3,
+    });
 };
 
 it("can fetch a list of tickets", async () => {
-  await addMovie();
-  await addMovie();
-  await addMovie();
+  await addMovie("1st Movie");
+  await addMovie("2nd Movie");
+  await addMovie("3rd Movie");
 
   const response = await request(app).get("/api/movies").send().expect(200);
 

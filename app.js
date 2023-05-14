@@ -12,6 +12,8 @@ const addMovieRouter = require("./routes/addMovie");
 const showMovieRouter = require("./routes/showMovie");
 const updateMovieRouter = require("./routes/updateMovie");
 const deleteMovieRouter = require("./routes/deleteMovie");
+const genreMovieRouter = require("./routes/genre");
+const sortMovieRouter = require("./routes/sortOrderMovie");
 
 app.use(cors());
 app.use(express.json());
@@ -21,6 +23,8 @@ app.use("/api/movies", indexMovieRouter);
 app.use("/api/movies", showMovieRouter);
 app.use("/api/movies", updateMovieRouter);
 app.use("/api/movies", deleteMovieRouter);
+app.use("/api/movies/sort", sortMovieRouter);
+app.use("/api/movies/genre", genreMovieRouter);
 app.use("/api/movies/new", addMovieRouter);
 
 app.get("/", (req, res) => {

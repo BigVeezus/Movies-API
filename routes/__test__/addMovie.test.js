@@ -100,6 +100,34 @@ it("creates a movie with valid inputs", async () => {
   const title = "asldkfj";
   const description = "Great film";
   const year = 2003;
+  const genre = ["action"];
+  const score = 10;
+
+  await request(app)
+    .post("/api/movies/new")
+    .send({
+      title,
+      description,
+      genre,
+      year,
+      score,
+    })
+    .expect(200);
+
+  movies = await Movie.find({});
+  expect(movies.length).toEqual(1);
+  expect(movies[0].year).toEqual(2003);
+  expect(movies[0].title).toEqual(title);
+});
+
+it("creates a movie and defaults genre to Drama if genre field empty", async () => {
+  let movies = await Movie.find({});
+
+  expect(movies.length).toEqual(0);
+
+  const title = "asldkfj";
+  const description = "Great film";
+  const year = 2003;
   const score = 10;
 
   await request(app)
@@ -116,4 +144,5 @@ it("creates a movie with valid inputs", async () => {
   expect(movies.length).toEqual(1);
   expect(movies[0].year).toEqual(2003);
   expect(movies[0].title).toEqual(title);
+  expect(movies[0].genre).toEqual(["drama"]);
 });

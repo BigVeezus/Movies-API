@@ -9,6 +9,7 @@ router.post(
   [
     body("title").notEmpty().withMessage("Title is required"),
     body("description").notEmpty().withMessage("Description is required"),
+    body("genre").toLowerCase(),
     body("year")
       .isFloat({
         gt: 1900,

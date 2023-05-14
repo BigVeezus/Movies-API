@@ -9,6 +9,13 @@ module.exports.movieIndex = async (req, res) => {
 
 module.exports.addMovie = async (req, res) => {
   try {
+    const existingMovie = await Movie.find(req.body);
+    if (existingMovie.length >= 1) {
+      return res.status(400).send({
+        success: false,
+        error: "Movie exists",
+      });
+    }
     const newMovie = new Movie(req.body);
     await newMovie.save();
 
@@ -18,14 +25,23 @@ module.exports.addMovie = async (req, res) => {
       id: newMovie.id,
     });
   } catch (error) {
-    console.error(error);
-    res.status(400).send("Movie wasnt created");
+    // console.error(error);
+    res.status(400).send({
+      success: false,
+      error: error.message,
+    });
   }
 };
 
 module.exports.showMovie = async (req, res) => {
   try {
     // console.log(req.params.id);
+    if (!req.params.id) {
+      return res.status(404).send({
+        success: false,
+        error: "No ID found",
+      });
+    }
     const movie = await Movie.findById(req.params.id);
 
     res.status(200).send(movie);
@@ -69,4 +85,51 @@ module.exports.deleteMovie = async (req, res) => {
       errors: [{ message: "Something went wrong" }],
     });
   }
+};
+
+module.exports.showDrama = async (req, res) => {
+  // await Movie.deleteMany({});
+  const movies = await Movie.find({
+    genre: {
+      $all: "drama",
+    },
+  });
+
+  // console.log(movies);
+  res.status(200).send(movies);
+};
+
+module.exports.showAction = async (req, res) => {
+  // await Movie.deleteMany({});
+  const movies = await Movie.find({
+    genre: {
+      $all: "action",
+    },
+  });
+
+  // console.log(movies);
+  res.status(200).send(movies);
+};
+
+module.exports.showRomance = async (req, res) => {
+  // await Movie.deleteMany({});
+  const movies = await Movie.find({
+    genre: {
+      $all: "romance",
+    },
+  });
+
+  // console.log(movies);
+  res.status(200).send(movies);
+};
+
+module.exports.showComedy = async (req, res) => {
+  // await Movie.deleteMany({});
+  const movies = await Movie.find({
+    genre: {
+      $all: "comedy",
+    },
+  });
+  // console.log(movies);
+  res.status(200).send(movies);
 };
