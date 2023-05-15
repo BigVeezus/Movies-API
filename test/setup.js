@@ -2,6 +2,8 @@ const { MongoMemoryServer } = require("mongodb-memory-server");
 const mongoose = require("mongoose");
 
 let mongo;
+
+// Function ran before tests start
 beforeAll(async () => {
   mongo = await MongoMemoryServer.create();
   const mongoUri = mongo.getUri();
@@ -9,6 +11,7 @@ beforeAll(async () => {
   await mongoose.connect(mongoUri, {});
 });
 
+// Function ran before each tests
 beforeEach(async () => {
   const collections = await mongoose.connection.db.collections();
 
@@ -17,6 +20,7 @@ beforeEach(async () => {
   }
 });
 
+// Close MongoDB test connection after tests
 afterAll(async () => {
   if (mongo) {
     await mongo.stop();

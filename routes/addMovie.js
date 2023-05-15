@@ -12,7 +12,7 @@ router.post(
     body("genre").toLowerCase(),
     body("year")
       .isFloat({
-        gt: 1900,
+        gt: 1800,
       })
       .withMessage("Year must be greater than 1900"),
     body("score")
@@ -23,7 +23,7 @@ router.post(
       })
       .withMessage("Score must be between 0 to 10"),
   ],
-  validateRequest,
+  validateRequest, // Validates request of the express validator
   movieController.addMovie
 );
 

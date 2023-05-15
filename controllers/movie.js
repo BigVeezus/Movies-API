@@ -1,12 +1,14 @@
 const { NotFoundError } = require("@ticketifyorg/common");
 const Movie = require("../model/movie");
 
+//GETS ALL MOVIES
 module.exports.movieIndex = async (req, res) => {
   const movies = await Movie.find({});
   //   console.log(movies);
   res.status(200).send(movies);
 };
 
+//ADD NEW MOVIE
 module.exports.addMovie = async (req, res) => {
   try {
     const existingMovie = await Movie.find(req.body);
@@ -33,6 +35,7 @@ module.exports.addMovie = async (req, res) => {
   }
 };
 
+//SHOW ONE MOVIE
 module.exports.showMovie = async (req, res) => {
   try {
     // console.log(req.params.id);
@@ -52,6 +55,7 @@ module.exports.showMovie = async (req, res) => {
   }
 };
 
+//UPDATE MOVIE
 module.exports.updateMovie = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -70,6 +74,7 @@ module.exports.updateMovie = async (req, res, next) => {
   }
 };
 
+//DELETE ONE MOVIE
 module.exports.deleteMovie = async (req, res) => {
   try {
     const { id } = req.params;
@@ -87,6 +92,7 @@ module.exports.deleteMovie = async (req, res) => {
   }
 };
 
+// SHOW DRAMA MOVIES ONLY
 module.exports.showDrama = async (req, res) => {
   // await Movie.deleteMany({});
   const movies = await Movie.find({
@@ -99,6 +105,7 @@ module.exports.showDrama = async (req, res) => {
   res.status(200).send(movies);
 };
 
+// ACTION MOVIES ONLY
 module.exports.showAction = async (req, res) => {
   // await Movie.deleteMany({});
   const movies = await Movie.find({
@@ -111,6 +118,7 @@ module.exports.showAction = async (req, res) => {
   res.status(200).send(movies);
 };
 
+// ROMANCE MOVIES ONLY
 module.exports.showRomance = async (req, res) => {
   // await Movie.deleteMany({});
   const movies = await Movie.find({
@@ -123,6 +131,7 @@ module.exports.showRomance = async (req, res) => {
   res.status(200).send(movies);
 };
 
+// COMEDY MOVIES ONLY
 module.exports.showComedy = async (req, res) => {
   // await Movie.deleteMany({});
   const movies = await Movie.find({

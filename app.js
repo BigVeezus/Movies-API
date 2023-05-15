@@ -2,6 +2,7 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
+//Modules
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
@@ -15,10 +16,11 @@ const deleteMovieRouter = require("./routes/deleteMovie");
 const genreMovieRouter = require("./routes/genre");
 const sortMovieRouter = require("./routes/sortOrderMovie");
 
-app.use(cors());
+app.use(cors()); //Allows extenal access to API
 app.use(express.json());
 app.use(errorHandler);
 
+// Imported Routes
 app.use("/api/movies", indexMovieRouter);
 app.use("/api/movies", showMovieRouter);
 app.use("/api/movies", updateMovieRouter);
@@ -27,10 +29,12 @@ app.use("/api/movies/sort", sortMovieRouter);
 app.use("/api/movies/genre", genreMovieRouter);
 app.use("/api/movies/new", addMovieRouter);
 
+// Default Home Endpoint
 app.get("/", (req, res) => {
   res.send("MOVIES API");
 });
 
+// Returns error for unavailable endpoints
 app.all("*", (req, res) => {
   throw new NotFoundError();
 });

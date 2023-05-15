@@ -1,5 +1,6 @@
 const Movie = require("../model/movie");
 
+// RANK MOVIE BY ASCENDING ORDER
 module.exports.ascendingYear = async (req, res) => {
   try {
     const movies = await Movie.find({}).sort({ year: 1 });
@@ -13,6 +14,7 @@ module.exports.ascendingYear = async (req, res) => {
   }
 };
 
+// RANK MOVIE BY DESCENDING ORDER
 module.exports.descendingYear = async (req, res) => {
   try {
     const movies = await Movie.find({}).sort({ year: -1 });
@@ -26,6 +28,7 @@ module.exports.descendingYear = async (req, res) => {
   }
 };
 
+// RANK MOVIE BY ASCENDING SCORE
 module.exports.ascendingScore = async (req, res) => {
   try {
     const movies = await Movie.find({}).sort({ score: 1 });
@@ -39,6 +42,7 @@ module.exports.ascendingScore = async (req, res) => {
   }
 };
 
+// RANK MOVIE BY DESCENDING SCORE
 module.exports.descendingScore = async (req, res) => {
   try {
     const movies = await Movie.find({}).sort({ score: -1 });
