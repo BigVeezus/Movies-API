@@ -37,7 +37,7 @@ app.get("/", (req, res) => {
 
 // SHows API report, performance and Profile
 app.get("/clinic-report", (req, res) => {
-  res.sendFile(path.join(__dirname + "/.clinic/2418.clinic-doctor.html"));
+  res.sendFile(path.join(__dirname + "/.clinic/17537.clinic-doctor.html"));
 });
 // Returns error for unavailable endpoints
 app.all("*", (req, res) => {
