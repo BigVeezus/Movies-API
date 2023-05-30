@@ -1,11 +1,25 @@
 const { NotFoundError } = require("@ticketifyorg/common");
 const Movie = require("../model/movie");
+const Redis = require("ioredis");
+
+const client = new Redis(
+  "redis://default:50c0fea972504c1cb7d6f96b69247a15@inviting-robin-36402.upstash.io:36402"
+);
 
 //GETS ALL MOVIES
 module.exports.movieIndex = async (req, res) => {
-  const movies = await Movie.find({});
-  //   console.log(movies);
-  res.status(200).send(movies);
+  await client.get("listofMovies", async (error, result) => {
+    if (error) console.error(error);
+
+    if (result != null) {
+      // console.log("There is result", result);
+      return res.status(200).json(JSON.parse(result));
+    }
+    // console.log("No result!");
+    const movies = await Movie.find({});
+    client.set("listofMovies", JSON.stringify(movies), "EX", 60);
+    res.status(200).send(movies);
+  });
 };
 
 //ADD NEW MOVIE
